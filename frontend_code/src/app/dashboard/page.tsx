@@ -122,14 +122,14 @@ export default function Dashboard() {
   return (
     <>
       <div className={`min-h-screen font-sans flex transition-colors duration-500 ${darkMode ? "bg-[#0f172a] text-white" : "bg-white text-black"}`}>
-        <aside className="w-64 min-h-screen bg-[#007698] text-white p-6 space-y-6 fixed top-0 left-0">
+        <aside className="w-64 min-h-screen bg-[#6b3a7a] text-white p-6 space-y-6 fixed top-0 left-0">
           <Link href="/">
             <div className="flex items-center space-x-2 mb-6 cursor-pointer">
               <img src="/imgs/logo.jpg" alt="Ecliptica Logo" className="w-14 h-14 rounded" />
               <span className="text-2xl font-semibold tracking-wide">Luminex</span>
             </div>
           </Link>
-          <div className="text-sm font-semibold text-[#d4ecff] uppercase tracking-widest mb-2">Menu</div>
+          <div className="text-sm font-semibold text-[#f8dfff] uppercase tracking-widest mb-2">Menu</div>
           <nav className="space-y-4">
             <Link href="/dashboard" className="flex items-center space-x-3 text-white hover:text-[#60a5fa] transition">
               <LayoutDashboard className="w-5 h-5" />
@@ -168,9 +168,9 @@ export default function Dashboard() {
 
           {/* Stats Row */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
-            <Card icon={<Layers />} title="Total Projects" value={projects.length.toString()} darkMode={darkMode} />
-            <Card icon={<Hash />} title="Most Common Keyword" value={getMostCommonKeyword(projects)} darkMode={darkMode} />
-            <Card icon={<Clock />} title="Latest Project" value={projects[0]?.name || "N/A"} darkMode={darkMode} />
+            <Card icon={<Layers className="h-6 w-6 text-[#6b3a7a]" />} title="Total Projects" value={projects.length.toString()} darkMode={darkMode} />
+            <Card icon={<Hash className="h-6 w-6 text-[#6b3a7a]" />} title="Most Common Keyword" value={getMostCommonKeyword(projects)} darkMode={darkMode} />
+            <Card icon={<Clock className="h-6 w-6 text-[#6b3a7a]" />} title="Latest Project" value={projects[0]?.name || "N/A"} darkMode={darkMode} />
           </div>
 
 
@@ -178,7 +178,7 @@ export default function Dashboard() {
           <div className={`rounded-xl p-6 shadow ${darkMode ? "bg-[#1e293b]" : "bg-gray-100"}`}>
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-2xl font-semibold">Recent Projects</h2>
-              <button onClick={handleCreateProject} disabled={loading} className="flex items-center space-x-2 bg-[#007698] text-white px-4 py-2 rounded-full hover:bg-blue-600 text-sm">
+              <button onClick={handleCreateProject} disabled={loading} className="flex items-center space-x-2 bg-[#bd7cd0] text-white px-4 py-2 rounded-full hover:bg-purple-600 text-sm">
                 <Plus className="w-4 h-4" />
                 <span>{loading ? "Processing..." : "Create New Project"}</span>
               </button>
@@ -186,8 +186,8 @@ export default function Dashboard() {
 
             {loading && (
               <div className="flex justify-center items-center mb-4">
-                <div className="animate-spin rounded-full h-6 w-6 border-t-4 border-blue-500"></div>
-                <span className="ml-4 text-blue-600">Generating outputs…</span>
+                <div className="animate-spin rounded-full h-6 w-6 border-t-4 border-purple-500"></div>
+                <span className="ml-4 text-purple-600">Generating outputs…</span>
               </div>
             )}
 
@@ -195,7 +195,7 @@ export default function Dashboard() {
               {(showAll ? projects : projects.slice(0, 4)).map((project, index) => (
                 <li key={index} className={`flex items-center justify-between rounded-lg p-4 ${darkMode ? "bg-[#334155]" : "bg-white border"}`}>
                   <div className="flex items-center space-x-4">
-                    <Folder className="text-yellow-400" />
+                    <Folder className="text-purple-400" />
                     <div>
                       <h3 className="text-lg font-medium">{project.name}</h3>
                       <p className="text-sm text-gray-400">
@@ -204,8 +204,8 @@ export default function Dashboard() {
                     </div>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <button onClick={() => handleDownloadNotice(project)} className="bg-[#007698] text-white px-4 py-2 rounded-full text-sm hover:bg-blue-600">Download</button>
-                    <Edit2 onClick={() => handleRename(index)} className="cursor-pointer text-blue-400 hover:text-blue-600" />
+                    <button onClick={() => handleDownloadNotice(project)} className="bg-[#bd7cd0] text-white px-4 py-2 rounded-full text-sm hover:bg-purple-600">Download</button>
+                    <Edit2 onClick={() => handleRename(index)} className="cursor-pointer text-purple-400 hover:text-purple-600" />
                     <Trash2 onClick={() => handleDelete(index)} className="cursor-pointer text-red-400 hover:text-red-600" />
                   </div>
                 </li>
@@ -214,7 +214,7 @@ export default function Dashboard() {
 
             {projects.length > 4 && (
               <div className="text-center mt-4">
-                <button onClick={() => setShowAll(!showAll)} className="text-blue-600 hover:underline font-medium">
+                <button onClick={() => setShowAll(!showAll)} className="text-purple-600 hover:underline font-medium">
                   {showAll ? "View Less" : "View All Projects"}
                 </button>
               </div>
@@ -229,7 +229,7 @@ export default function Dashboard() {
 
 const Card = ({ icon, title, value, darkMode }: { icon: React.ReactNode, title: string, value: string, darkMode: boolean }) => (
   <div className={`rounded-xl p-6 shadow flex items-center space-x-4 ${darkMode ? "bg-[#1e293b] text-white" : "bg-gray-100 text-black"}`}>
-    <div className="bg-blue-100 text-blue-600 p-3 rounded-full">{icon}</div>
+    <div className="bg-purple-100 text-purple-600 p-3 rounded-full">{icon}</div>
     <div>
       <h2 className="text-sm font-semibold">{title}</h2>
       <p className="text-2xl font-bold">{value}</p>

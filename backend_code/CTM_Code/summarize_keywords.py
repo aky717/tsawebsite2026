@@ -43,7 +43,7 @@ def clean_keywords(raw_keywords):
             expanded.append(t)  # If not expandable, keep original
     return " ".join(expanded)  # Join keywords with space for TF-IDF input
 
-# A list of predefined agricultural topics to assign based on keyword similarity
+# A list of predefined topics to assign based on keyword similarity
 AGRI_TOPICS = [
     "Parkinson’s Early Detection", "Voice-Based Diagnostics", "Telehealth Accessibility", "Remote Patient Monitoring",
     "Chronic Disease Management", "Emergency Care Triage", "AI Clinical Decision Support",

@@ -19,22 +19,22 @@ export default function Home() {
 			<div className="min-h-screen flex items-center justify-center bg-white">
 				<div className="flex lg:flex-row lg:items-start w-full">
 					<div className="lg:w-1/2 space-y-6 m-auto px-20">
-						<h1 className="text-6xl text-center text-[#005eb4] leading-tight tracking-wider font-bold">
+						<h1 className="text-6xl text-center text-[#6b3a7a] leading-tight tracking-wider font-bold">
 							Innovative Technology. <br />
 							Empowering Research.
 						</h1>
 						<p className="text-center text-2xl text-gray-800 tracking-wider w-3/4 left-10 relative">
 							Meet{" "}
-							<span id="what-do-we-do" className="font-bold text-[#007698]">
+							<span id="what-do-we-do" className="font-bold text-[#bd7cd0]">
 								Luminex
 							</span>
 							. Built for your research experience, simplified
 							by{" "}
-							<span className="font-bold text-[#007698]">AI</span>
+							<span className="font-bold text-[#bd7cd0]">AI</span>
 							.
 						</p>
 						<Link href="#what-do-we-do" >
-							<button className="text-center items-center justify-center left-20 relative bg-[#007698] text-white py-4 px-10 rounded-full text-lg font-medium mt-4 hover:bg-blue-700 transition">
+							<button className="text-center items-center justify-center left-20 relative bg-[#331d3a] text-white py-4 px-10 rounded-full text-lg font-medium mt-4 hover:bg-purple-700 transition">
 								Learn about us &rarr;
 							</button>
 						</Link>
@@ -42,25 +42,25 @@ export default function Home() {
 
 					<div
 						className="mt-10 left-7 relative w-[100vw] h-[105vh] bg-cover bg-center"
-						style={{ backgroundImage: "url(/imgs/home_logo.svg)" }}
+						style={{ backgroundImage: "url(/imgs/home_logo.jpg)" }}
 					/>
 				</div>
 			</div>
 
 			{/* Information Section */}
-			<div className="bg-[#d4ecff] w-full">
+			<div className="bg-[#f8dfff] w-full">
 			<div className="flex flex-col items-center justify-center relative space-y-8 py-20">
-				<p className="text-[#005eb4] text-5xl tracking-wider">
+				<p className="text-[#6b3a7a] text-5xl tracking-wider">
 				What Do We Do?
 				</p>
 				<p className="text-2xl w-4/5 text-center mx-8">
 				Our mission at Luminex is to harness the 
-				<span className="font-bold text-[#007698]"> power of AI</span> to make research processes more 
-				<span className="font-bold text-[#007698]"> accessible</span>, 
-				<span className="font-bold text-[#007698]"> personalized</span>, and 
-				<span className="font-bold text-[#007698]"> efficient</span> for everyone. By combining cutting-edge 
+				<span className="font-bold text-[#bd7cd0]"> power of AI</span> to make research processes more 
+				<span className="font-bold text-[#bd7cd0]"> accessible</span>, 
+				<span className="font-bold text-[#bd7cd0]"> personalized</span>, and 
+				<span className="font-bold text-[#bd7cd0]"> efficient</span> for everyone. By combining cutting-edge 
 				technology with compassionate care, we aim to empower individuals to 
-				<span className="font-bold text-[#007698]"> take control of their research journeys</span>, leading to better outcomes and lives. 
+				<span className="font-bold text-[#bd7cd0]"> take control of their research journeys</span>, leading to better outcomes and lives. 
 				Input a word into our website, and find a list of reputable publications that support your keyword, 
 				along with a compilation of many data visualizations that illustrate the publication's information 
 				concisely!
@@ -71,14 +71,14 @@ export default function Home() {
 			{/* Ready-to-manage-your-research section */}
 			<div className="bg-white w-full relative bottom-12 mt-20">
 			<div className="flex justify-center items-center flex-col space-y-5">
-				<h1 className="text-center text-5xl tracking-wider text-[#005eb4] leading-relaxed">
+				<h1 className="text-center text-5xl tracking-wider text-[#6b3a7a] leading-relaxed">
 				Ready to manage your research <br />
 				<span>with just one word?</span>
 				</h1>
 
 				<p className="mt-5 text-2xl tracking-wide w-full text-center">
 				Use our research model and{" "}
-				<span className="font-black text-[#007698]">
+				<span className="font-black text-[#bd7cd0]">
 					illuminate
 				</span>{" "}
 				the research world with ease.{" "}
@@ -86,7 +86,7 @@ export default function Home() {
 
 				<Link
 				href="/about#what-do-you-want-to-research">
-					<button className="text-center items-center justify-center center-20 relative bg-[#007698] text-white py-4 px-10 rounded-full text-lg font-medium mt-4 hover:bg-blue-700 transition">
+					<button className="text-center items-center justify-center center-20 relative bg-[#331d3a] text-white py-4 px-10 rounded-full text-lg font-medium mt-4 hover:bg-purple-700 transition">
 						Use Luminex Now &rarr;
 					</button>
 				</Link>
@@ -101,7 +101,7 @@ export default function Home() {
 			</div>
 
 			{/* Checkpoints section */}
-			<div className="relative mb-0 mt-0 flex w-full bg-[#d4ecff] py-16">
+			<div className="relative mb-0 mt-0 flex w-full bg-[#f8dfff] py-16">
 			<div className="flex justify-center items-center w-1/2">
 				<img
 				src="/imgs/data-guy.jpg"
@@ -117,17 +117,17 @@ export default function Home() {
 				<CheckList text="Upload datasets and access specialized data visualizations" />
 			</div>
 			</div>
-			<div className="bg-[#99ceff] w-full h-72 items-center justify-center flex flex-col">
+			<div className="bg-[#bd7cd0] w-full h-72 items-center justify-center flex flex-col">
 				<div className="space-y-10">
-					<p className="text-5xl text-[#005eb4]">Research With Ease</p>
-					<p className="text-xl tracking-wider text-[#005eb4] text-center relative">
+					<p className="text-5xl text-[#6b3a7a]">Research With Ease</p>
+					<p className="text-xl tracking-wider text-[#f8dfff] text-center relative">
 						Start your independent research journey.
 					</p>
 				</div>
 
 				<Link
 					href="/about#possible-data-visualizations">
-					<button className="text-center items-center justify-center center-20 relative bg-[#007698] text-white py-4 px-10 rounded-full text-lg font-medium mt-4 hover:bg-blue-700 transition">
+					<button className="text-center items-center justify-center center-20 relative bg-[#331d3a] text-white py-4 px-10 rounded-full text-lg font-medium mt-4 hover:bg-purple-700 transition">
 								Explore Luminex &rarr;
 					</button>
 				</Link>
@@ -144,7 +144,7 @@ interface CheckListProps {
   const CheckList = ({ text }: CheckListProps) => {
 	return (
 	  <div className="flex flex-row items-start space-x-12 w-full max-w-2xl">
-		<Check className="h-6 w-6 text-[#007698]" />
+		<Check className="h-6 w-6 text-[#bd7cd0]" />
 		<p className="tracking-widest text-2xl flex-grow mr-12 break-words">
 		  {text}
 		</p>

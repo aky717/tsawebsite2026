@@ -20,6 +20,8 @@ from Visualization_Code.linechart import line_chart_overview
 from Visualization_Code.pie_chart import generate_pie_chart
 from Visualization_Code.sum_sunburst import create_sunburst_chart
 from Visualization_Code.keyword_network import generate_keyword_network
+from Visualization_Code.keyword_sankey import generate_topic_keyword_sankey
+from Visualization_Code.venn_diagram import generate_venn_diagram
 
 print("✅ Flask app is loaded and waiting...")
 
@@ -102,6 +104,11 @@ def run_pipeline():
         create_sunburst_chart(ctm_output_csv, output_folder)
         line_chart_overview(assigned_output_path, output_folder)
         generate_keyword_network(ctm_output_csv, output_folder)
+        generate_topic_keyword_sankey(ctm_output_csv, output_folder)
+        generate_venn_diagram(ctm_output_csv, output_folder)
+
+
+
         print("📊 Visualizations done")
         steps.update(1)
 

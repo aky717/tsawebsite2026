@@ -5,13 +5,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 
 const items = [ 
-  { id: 1, title: "Pie Charts", icon: "/imgs/new-piechart.jpg", background: "bg-[#007698]" }, 
-  { id: 2, title: "Line Charts", icon: "/imgs/line-chart.jpg", background: "bg-[#042839]" }, 
-  { id: 3, title: "Geographic Charts", icon: "/imgs/geographic-chart.jpg", background: "bg-[#007698]" }, 
-  { id: 4, title: "Publication Count Charts", icon: "/imgs/publication-count-chart.jpg", background: "bg-[#005eb4]" }, 
-  { id: 5, title: "Sunburst Charts", icon: "/imgs/sunburst-chart.jpg", background: "bg-[#042839]" }, 
-  { id: 6, title: "Topics Over Time Charts", icon: "/imgs/topics-over-time-chart.jpg", background: "bg-[#007698]" }, 
-  { id: 7, title: "Growth Bar Over Time Charts", icon: "/imgs/growth-bar-chart.jpg", background: "bg-[#005eb4]" },
+  { id: 1, title: "Pie Charts", icon: "/imgs/pie-chart.jpg", background: "bg-[#bd7cd0]" }, 
+  { id: 2, title: "Line Charts", icon: "/imgs/line-chart.jpg", background: "bg-[#331d3a]" }, 
+  { id: 3, title: "Geographic Charts", icon: "/imgs/geographic-chart.jpg", background: "bg-[#bd7cd0]" }, 
+  { id: 4, title: "Publication Count Charts", icon: "/imgs/publication-count-chart.jpg", background: "bg-[#6b3a7a]" }, 
+  { id: 5, title: "Sunburst Charts", icon: "/imgs/sunburst-chart.jpg", background: "bg-[#331d3a]" }, 
+  { id: 6, title: "Topics Over Time Charts", icon: "/imgs/topics-over-time-chart.jpg", background: "bg-[#bd7cd0]" }, 
+  { id: 7, title: "Growth Bar Over Time Charts", icon: "/imgs/growth-bar-chart.jpg", background: "bg-[#6b3a7a]" },
 ];
 
 export default function Carousel() { 
@@ -48,9 +48,9 @@ export default function Carousel() {
     <div className="relative flex items-center justify-center w-full max-w-6xl p-6 mx-auto">
       <button 
         onClick={prevSlide} 
-        className="absolute left-0 p-4 bg-gray-100 border-2 border-[#d4ecff] rounded-full shadow-md top-1/2 transform -translate-y-1/2 hover:bg-gray-200 transition"
+        className="absolute left-0 p-4 bg-gray-100 border-2 border-[#6b3a7a] rounded-full shadow-md top-1/2 transform -translate-y-1/2 hover:bg-gray-200 transition"
       >
-        <ChevronLeft size={32} className="text-[#005eb4]" />
+        <ChevronLeft size={32} className="text-[#6b3a7a]" />
       </button>
 
       <div className="flex space-x-6 justify-center w-full overflow-hidden">
@@ -79,9 +79,9 @@ export default function Carousel() {
 
       <button 
         onClick={nextSlide} 
-        className="absolute right-0 p-4 bg-gray-100 border-2 border-[#d4ecff] rounded-full shadow-md top-1/2 transform -translate-y-1/2 hover:bg-gray-200 transition"
+        className="absolute right-0 p-4 bg-gray-100 border-2 border-[#6b3a7a] rounded-full shadow-md top-1/2 transform -translate-y-1/2 hover:bg-gray-200 transition"
       >
-        <ChevronRight size={32} className="text-[#005eb4]" />
+        <ChevronRight size={32} className="text-[#6b3a7a]" />
       </button>
     </div>
   );
