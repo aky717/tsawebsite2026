@@ -15,11 +15,23 @@ const SignInModal: React.FC<SignInModalProps> = ({ isOpen, onClose }) => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (name.trim()) {
+      localStorage.setItem("ecliptica_username", name.trim());
+    }
+
+    onClose();
+    router.push("/dashboard");
+  };
+
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="relative bg-white rounded-2xl shadow-xl px-10 py-8 w-full max-w-xl">
+        
         {/* Close button */}
         <button
           onClick={onClose}
@@ -36,8 +48,9 @@ const SignInModal: React.FC<SignInModalProps> = ({ isOpen, onClose }) => {
           Let’s create your account
         </p>
 
-        {/* Inputs */}
-        <div className="space-y-4">
+        {/* Submissions */}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          
           <input
             type="email"
             placeholder="Email"
@@ -45,6 +58,7 @@ const SignInModal: React.FC<SignInModalProps> = ({ isOpen, onClose }) => {
             onChange={(e) => setEmail(e.target.value)}
             className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#331d3a]"
           />
+
           <input
             type="text"
             placeholder="Username"
@@ -52,6 +66,7 @@ const SignInModal: React.FC<SignInModalProps> = ({ isOpen, onClose }) => {
             onChange={(e) => setUsername(e.target.value)}
             className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#331d3a]"
           />
+
           <input
             type="text"
             placeholder="Name"
@@ -59,6 +74,7 @@ const SignInModal: React.FC<SignInModalProps> = ({ isOpen, onClose }) => {
             onChange={(e) => setName(e.target.value)}
             className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#331d3a]"
           />
+
           <input
             type="password"
             placeholder="Password"
@@ -66,29 +82,33 @@ const SignInModal: React.FC<SignInModalProps> = ({ isOpen, onClose }) => {
             onChange={(e) => setPassword(e.target.value)}
             className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#331d3a]"
           />
-        </div>
 
-        {/* Buttons */}
-        <div className="mt-6 space-y-3">
-          <button
-            onClick={() => {
-              if (name.trim()) {
-                localStorage.setItem("ecliptica_username", name.trim());
-              }
-              onClose();
-              router.push("/dashboard");
-            }}
-            className="w-full bg-[#331d3a] text-white py-3 rounded-full text-lg font-medium hover:bg-purple-700 transition"
-          >
-            Create your account
-          </button>
-          <button className="w-full border border-gray-300 py-3 rounded-full text-lg hover:border-[#331d3a] transition">
-            Sign in with Google
-          </button>
-          <button className="w-full border border-gray-300 py-3 rounded-full text-lg hover:border-[#331d3a] transition">
-            Log in with GitHub
-          </button>
-        </div>
+          {/* Buttons */}
+          <div className="mt-6 space-y-3">
+            <button
+              type="submit"
+              className="w-full bg-[#331d3a] text-white py-3 rounded-full text-lg font-medium hover:bg-purple-700 transition"
+            >
+              Create your account
+            </button>
+
+            <button
+              type="button"
+              className="w-full border border-gray-300 py-3 rounded-full text-lg hover:border-[#331d3a] transition"
+            >
+              Sign in with Google
+            </button>
+
+            <button
+              type="button"
+              className="w-full border border-gray-300 py-3 rounded-full text-lg hover:border-[#331d3a] transition"
+            >
+              Log in with GitHub
+            </button>
+          </div>
+
+        </form>
+
       </div>
     </div>
   );

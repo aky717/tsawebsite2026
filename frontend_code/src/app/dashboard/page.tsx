@@ -1,15 +1,14 @@
 "use client";
-
 import React, { useState, useEffect } from "react";
 import {
   Folder, FileText, Clock, Sun, Moon,
-  ChevronDown, LogOut, Plus, Edit2, Trash2, Layers, Hash, Star
+  ChevronDown, LogOut, Plus, Edit2, Trash2, Layers, Hash
 } from "lucide-react";
 import Link from "next/link";
 import { LayoutDashboard, User } from "lucide-react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import Head from "next/head";
 interface Project {
   name: string;
   keywords: string;
@@ -76,9 +75,9 @@ export default function Dashboard() {
   };
 
   const handleDownloadNotice = (project: Project) => {
-    toast.success(`${project.name} has been downloaded! You can find it in your Downloads folder.`, {
+    toast.success(`${project.name} has been downloaded!`, {
       position: "bottom-right",
-      autoClose: 5000,
+      autoClose: 4000,
       theme: darkMode ? "dark" : "light",
     });
   };
@@ -94,54 +93,62 @@ export default function Dashboard() {
   };
 
   const handleDelete = (index: number) => {
-      if (confirm("Are you sure you want to delete this project?")) {
-        const updated = [...projects];
-        updated.splice(index, 1);
-        setProjects(updated);
-        localStorage.setItem("ecliptica_projects", JSON.stringify(updated));
-      }
-    };
-
-    function getMostCommonKeyword(projects: Project[]) {
-    const freq: Record<string, number> = {};
-
-    for (const project of projects) {
-      const nameParts = project.name.split("_").filter(word =>
-        word !== "data" && word.length > 1
-      );
-      nameParts.forEach(word => {
-        freq[word] = (freq[word] || 0) + 1;
-      });
+    if (confirm("Delete this project?")) {
+      const updated = [...projects];
+      updated.splice(index, 1);
+      setProjects(updated);
+      localStorage.setItem("ecliptica_projects", JSON.stringify(updated));
     }
+  };
 
+  function getMostCommonKeyword(projects: Project[]) {
+    const freq: Record<string, number> = {};
+    for (const project of projects) {
+      const nameParts = project.name.split("_").filter(w => w !== "data" && w.length > 1);
+      nameParts.forEach(w => freq[w] = (freq[w] || 0) + 1);
+    }
     const sorted = Object.entries(freq).sort((a, b) => b[1] - a[1]);
-    return sorted.length > 0 ? sorted[0][0] : "N/A";
+    return sorted.length ? sorted[0][0] : "N/A";
   }
-
 
   return (
     <>
-      <div className={`min-h-screen font-sans flex transition-colors duration-500 ${darkMode ? "bg-[#0f172a] text-white" : "bg-white text-black"}`}>
-        <aside className="w-64 min-h-screen bg-[#6b3a7a] text-white p-6 space-y-6 fixed top-0 left-0">
-          <Link href="/">
-            <div className="flex items-center space-x-2 mb-6 cursor-pointer">
-              <img src="/imgs/logo.jpg" alt="Ecliptica Logo" className="w-14 h-14 rounded" />
-              <span className="text-2xl font-semibold tracking-wide">Luminex</span>
-            </div>
-          </Link>
-          <div className="text-sm font-semibold text-[#f8dfff] uppercase tracking-widest mb-2">Menu</div>
-          <nav className="space-y-4">
-            <Link href="/dashboard" className="flex items-center space-x-3 text-white hover:text-[#60a5fa] transition">
-              <LayoutDashboard className="w-5 h-5" />
-              <span className="text-base font-medium">Dashboard</span>
-            </Link>
-            <Link href="/profile" className="flex items-center space-x-3 text-white hover:text-[#60a5fa] transition">
-              <User className="w-5 h-5" />
-              <span className="text-base font-medium">Profile</span>
-            </Link>
-          </nav>
-        </aside>
+    <Head>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap"
+        rel="stylesheet"
+      />
+    </Head>
+      <div className={`min-h-screen flex ${darkMode ? "bg-[#0a0010] text-white" : "bg-white text-black"}`} style={{ fontFamily: "'Syne', sans-serif" }}>
 
+        {/* Sidebar */}
+        <aside className="w-64 min-h-screen bg-[#6b3a7a] border-r border-white/10 fixed top-0 left-0 px-6 pt-0">
+        <Link href="/">
+          <div className="flex justify-center mb-8 cursor-pointer">
+            <img
+              src="/imgs/luminex.png"
+              alt="Luminex"
+              className={`
+                h-30 w-30 md:h-33 md:w-33 object-contain
+                opacity-90
+                [mask-image:radial-gradient(circle,white_60%,transparent_100%)]
+                hover:scale-105 transition-all duration-300
+              `}
+            />
+          </div>
+        </Link>
+
+        <nav className="space-y-5">
+          <Link href="/dashboard" className="flex items-center space-x-3 hover:text-[#bd7cd0]">
+            <LayoutDashboard /> <span>Dashboard</span>
+          </Link>
+          <Link href="/profile" className="flex items-center space-x-3 hover:text-[#bd7cd0]">
+            <User /> <span>Profile</span>
+          </Link>
+        </nav>
+      </aside>
+
+        {/* Main page */}
         <div className="ml-64 flex-1 px-10 py-10">
           <div className="flex justify-between items-center mb-8">
             <h1 className="text-4xl font-bold tracking-wide">Welcome {username}!</h1>
@@ -149,11 +156,11 @@ export default function Dashboard() {
               <button onClick={() => setDarkMode(!darkMode)} className="p-2 rounded-full border hover:bg-gray-200 dark:hover:bg-gray-700 transition">
                 {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
               </button>
-              <button onClick={() => setShowDropdown(!showDropdown)} className="flex items-center space-x-2 border px-3 py-1 rounded-full text-sm transition">
-                <span>{username}</span>
-                <ChevronDown className="w-4 h-4" />
-              </button>
-              {showDropdown && (
+             <button onClick={() => setShowDropdown(!showDropdown)} className="flex items-center space-x-2 border px-3 py-1 rounded-full text-sm transition">
+               <span>{username}</span>
+               <ChevronDown className="w-4 h-4" />
+            </button>
+             {showDropdown && (
                 <div className="absolute right-0 top-full mt-2 w-40 bg-white dark:bg-[#1e293b] border border-gray-200 dark:border-gray-700 rounded-md shadow-md z-10">
                   <button
                     onClick={handleLogout}
@@ -166,16 +173,16 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Stats Row */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
+          {/* Statistics at the Top */}
+          <div className={`grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10 rounded-xl p-6 shadow ${darkMode ? "bg-[#0a0010]" : "bg-gray-100"}`}>
             <Card icon={<Layers className="h-6 w-6 text-[#6b3a7a]" />} title="Total Projects" value={projects.length.toString()} darkMode={darkMode} />
             <Card icon={<Hash className="h-6 w-6 text-[#6b3a7a]" />} title="Most Common Keyword" value={getMostCommonKeyword(projects)} darkMode={darkMode} />
             <Card icon={<Clock className="h-6 w-6 text-[#6b3a7a]" />} title="Latest Project" value={projects[0]?.name || "N/A"} darkMode={darkMode} />
           </div>
 
 
-          {/* Project Cards */}
-          <div className={`rounded-xl p-6 shadow ${darkMode ? "bg-[#1e293b]" : "bg-gray-100"}`}>
+          {/* Projects Section */}
+          <div className={`rounded-xl p-6 shadow ${darkMode ? "bg-[#0a0010]" : "bg-gray-100"}`}>
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-2xl font-semibold">Recent Projects</h2>
               <button onClick={handleCreateProject} disabled={loading} className="flex items-center space-x-2 bg-[#bd7cd0] text-white px-4 py-2 rounded-full hover:bg-purple-600 text-sm">
@@ -187,13 +194,13 @@ export default function Dashboard() {
             {loading && (
               <div className="flex justify-center items-center mb-4">
                 <div className="animate-spin rounded-full h-6 w-6 border-t-4 border-purple-500"></div>
-                <span className="ml-4 text-purple-600">Generating outputs…</span>
+                <span className="ml-4 text-[#bd7cd0]">Generating outputs…</span>
               </div>
             )}
 
             <ul className="space-y-4">
               {(showAll ? projects : projects.slice(0, 4)).map((project, index) => (
-                <li key={index} className={`flex items-center justify-between rounded-lg p-4 ${darkMode ? "bg-[#334155]" : "bg-white border"}`}>
+                <li key={index} className={`flex items-center justify-between rounded-lg p-4 ${darkMode ? "bg-white/[0.03] border border-white/10" : "bg-gray-100"}`}>
                   <div className="flex items-center space-x-4">
                     <Folder className="text-purple-400" />
                     <div>
@@ -213,11 +220,9 @@ export default function Dashboard() {
             </ul>
 
             {projects.length > 4 && (
-              <div className="text-center mt-4">
-                <button onClick={() => setShowAll(!showAll)} className="text-purple-600 hover:underline font-medium">
-                  {showAll ? "View Less" : "View All Projects"}
-                </button>
-              </div>
+              <button onClick={() => setShowAll(!showAll)} className="mt-4 text-[#bd7cd0]">
+                {showAll ? "Less" : "More"}
+              </button>
             )}
           </div>
         </div>
@@ -227,11 +232,12 @@ export default function Dashboard() {
   );
 }
 
-const Card = ({ icon, title, value, darkMode }: { icon: React.ReactNode, title: string, value: string, darkMode: boolean }) => (
-  <div className={`rounded-xl p-6 shadow flex items-center space-x-4 ${darkMode ? "bg-[#1e293b] text-white" : "bg-gray-100 text-black"}`}>
-    <div className="bg-purple-100 text-purple-600 p-3 rounded-full">{icon}</div>
+{/* Card Design */}
+const Card = ({ icon, title, value }: any) => (
+  <div className="bg-white/[0.03] border border-white/10 p-6 rounded-xl flex space-x-4">
+    <div className="text-[#bd7cd0]">{icon}</div>
     <div>
-      <h2 className="text-sm font-semibold">{title}</h2>
+      <p className="text-sm">{title}</p>
       <p className="text-2xl font-bold">{value}</p>
     </div>
   </div>

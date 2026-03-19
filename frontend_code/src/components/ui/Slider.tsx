@@ -1,88 +1,83 @@
-'use client'; 
-import { useState, useEffect } from "react"; 
-import { ChevronLeft, ChevronRight } from "lucide-react"; 
-import { Card, CardContent } from "@/components/ui/card"; 
+'use client';
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
-const items = [ 
-  { id: 1, title: "Pie Charts", icon: "/imgs/pie-chart.jpg", background: "bg-[#bd7cd0]" }, 
-  { id: 2, title: "Line Charts", icon: "/imgs/line-chart.jpg", background: "bg-[#331d3a]" }, 
-  { id: 3, title: "Geographic Charts", icon: "/imgs/geographic-chart.jpg", background: "bg-[#bd7cd0]" }, 
-  { id: 4, title: "Publication Count Charts", icon: "/imgs/publication-count-chart.jpg", background: "bg-[#6b3a7a]" }, 
-  { id: 5, title: "Sunburst Charts", icon: "/imgs/sunburst-chart.jpg", background: "bg-[#331d3a]" }, 
-  { id: 6, title: "Topics Over Time Charts", icon: "/imgs/topics-over-time-chart.jpg", background: "bg-[#bd7cd0]" }, 
-  { id: 7, title: "Growth Bar Over Time Charts", icon: "/imgs/growth-bar-chart.jpg", background: "bg-[#6b3a7a]" },
+const items = [
+  { id: 1, title: "Pie Charts", icon: "/imgs/new-piechart.jpg" },
+  { id: 2, title: "Line Charts", icon: "/imgs/new-linechart.png" },
+  { id: 3, title: "Heat Maps", icon: "/imgs/new-geographychart.png" },
+  { id: 5, title: "Sunburst Charts", icon: "/imgs/new-sunburstchart.png" },
+  { id: 6, title: "Keyword Networks", icon: "/imgs/new-scatterplotchart.png" },
+  { id: 7, title: "Bar Graphs", icon: "/imgs/new-bargraph.png" },
 ];
 
-export default function Carousel() { 
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [autoSlide, setAutoSlide] = useState(true);
+export default function Slider() {
+  const [index, setIndex] = useState(0);
 
-  const prevSlide = () => {
-    setActiveIndex((prev) => (prev === 0 ? items.length - 3 : prev - 3));
-    setAutoSlide(false);
+  {/* Sliding Effect */}
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % items.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const getItem = (offset: number) => {
+    return items[(index + offset + items.length) % items.length];
   };
 
-  const nextSlide = () => {
-    setActiveIndex((prev) => (prev === items.length - 3 ? 0 : prev + 3));
-    setAutoSlide(false);
-  };
-
-  const displayedItems = [
-    items[(activeIndex + 0) % items.length],
-    items[(activeIndex + 1) % items.length],
-    items[(activeIndex + 2) % items.length],
+  const positions = [
+    { x: -260, scale: 0.8, opacity: 0.4, blur: "blur(6px)" },
+    { x: 0, scale: 1, opacity: 1, blur: "blur(0px)" },
+    { x: 260, scale: 0.8, opacity: 0.4, blur: "blur(6px)" },
   ];
 
-  useEffect(() => {
-    if (autoSlide) {
-      const interval = setInterval(() => {
-        setActiveIndex((prev) => (prev === items.length - 3 ? 0 : prev + 3));
-      }, 4000);
-
-      return () => clearInterval(interval);
-    }
-  }, [autoSlide]);
-
   return (
-    <div className="relative flex items-center justify-center w-full max-w-6xl p-6 mx-auto">
-      <button 
-        onClick={prevSlide} 
-        className="absolute left-0 p-4 bg-gray-100 border-2 border-[#6b3a7a] rounded-full shadow-md top-1/2 transform -translate-y-1/2 hover:bg-gray-200 transition"
-      >
-        <ChevronLeft size={32} className="text-[#6b3a7a]" />
-      </button>
+    <div className="relative w-full flex justify-center items-center h-[420px]">
+      <div className="relative w-[800px] h-full flex items-center justify-center">
 
-      <div className="flex space-x-6 justify-center w-full overflow-hidden">
-        {displayedItems.map((item, index) => (
-          <Card
-            key={item.id}
-            className={`flex flex-col items-center justify-center p-10 w-80 h-80 transition-transform duration-500 ${item.background} text-white rounded-xl`} // Duration for smooth transition
-          >
-            <CardContent className="flex flex-col items-center">
-              {item.icon.endsWith('.jpg') || item.icon.endsWith('.png') || item.icon.endsWith('.svg') ? (
+        {[getItem(-1), getItem(0), getItem(1)].map((item, i) => {
+          const pos = positions[i];
+
+          return (
+            <motion.div
+              key={item.id}
+              initial={false}
+              animate={{
+                x: pos.x,
+                scale: pos.scale,
+                opacity: pos.opacity,
+                filter: pos.blur,
+              }}
+              transition={{
+                duration: 0.3,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="absolute w-72 h-80 rounded-2xl overflow-hidden border border-white/10 bg-[#6b3a7a]"
+              style={{
+                boxShadow:
+                  i === 1
+                    ? "0 20px 80px rgba(189,124,208,0.35)"
+                    : "0 10px 40px rgba(0,0,0,0.3)",
+              }}
+            >
+              <div className="relative w-full h-full flex flex-col items-center justify-center p-6">
                 <Image
                   src={item.icon}
                   alt={item.title}
-                  width={150}
-                  height={150}
+                  width={140}
+                  height={140}
                   className="object-contain"
                 />
-              ) : (
-                <span className="text-6xl">{item.icon}</span>
-              )}
-              <p className="mt-3 font-semibold text-center">{item.title}</p>
-            </CardContent>
-          </Card>
-        ))}
+                <p className="mt-4 text-lg font-semibold text-center text-white">
+                  {item.title}
+                </p>
+              </div>
+            </motion.div>
+          );
+        })}
       </div>
-
-      <button 
-        onClick={nextSlide} 
-        className="absolute right-0 p-4 bg-gray-100 border-2 border-[#6b3a7a] rounded-full shadow-md top-1/2 transform -translate-y-1/2 hover:bg-gray-200 transition"
-      >
-        <ChevronRight size={32} className="text-[#6b3a7a]" />
-      </button>
     </div>
   );
 }
